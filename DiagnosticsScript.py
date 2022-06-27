@@ -62,7 +62,7 @@ print('7 Show snmp configuration')
 print('8 Show lldp neighbors')
 command_list = input('What would you like to do? Please enter a number from the list above: \n')
 
-
+# Simple if then statement to detect OS. This should probably be broken into separate imports.
 if command_list == "1":
     os_type = best_match
     net_connect = ConnectHandler(**device2)
