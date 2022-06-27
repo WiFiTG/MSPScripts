@@ -31,11 +31,11 @@ with ConnectHandler(**device) as connection:
 
 # Disconnecting the first session, duh.
 net_connect.disconnect()
-# defining the OS/platform as the best_match by SSH Detect
 
+# defining the OS/platform as the best_match by SSH Detect
 os_type = best_match
 
-# defining a secondary device because I was unsure what to put here, I am not a developer, but I try my best - LM
+# defining a secondary device because I was unsure what to put here. I am not a developer, but I try my best
 device2 = {
     "device_type": best_match,
     "host": switch_ip,
@@ -45,27 +45,38 @@ device2 = {
 
 }
 # connecting to device
-net_connect = ConnectHandler(**device)
+net_connect = ConnectHandler(**device2)
 print('Attempting to connect to ' + switch_ip)
+
 # at this point connection should be established, no?
+
+
 print('-' * 79)
-print('1 Find MAC Address')
-print('2 show routes')
+print("1 Find MAC Address")
+print('2 Show routes')
+print('3 Find loop SLPP, ELRP, STP')
+print('4 Test Cable termination')
+print('5 Show interfaces verbose')
+print('6 Show access profiles')
+print('7 Show snmp configuration')
+print('8 Show lldp neighbors')
 command_list = input('What would you like to do? Please enter a number from the list above: \n')
 
 
 if command_list == "1":
     os_type = best_match
     net_connect = ConnectHandler(**device2)
+    macaddress = input('what is the mac address(xx.xx.xx.xx): \n')
     if OSGuesser.autodetect() == "extreme_exos":
         output = net_connect.send_command("show fdb")
-    elif OSGuesser.autodetect() == "extreme_voss":
-        output = net_connect.send_command("show vlan mac-address-entry")
+        print(output)
+    elif OSGuesser.autodetect() == "extreme_vsp":
+        output = net_connect.send_command("show vlan mac-address-entry mac {}".format(macaddress))
+        print(output)
     else:
         print("Device type not supported")
 else:
     print("please select something else, danke")
 
-print(output)
-net_connect.disconnect()
 
+net_connect.disconnect()

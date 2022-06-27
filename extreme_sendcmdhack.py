@@ -19,8 +19,8 @@ with open('devices.txt') as devices:
             'device_type': 'extreme_exos',
             # 'device_type': 'extreme',
             'ip': IP,
-            'username': '',   # CHANGE THIS AS PER SCHOOL
-            'password': '',    # CHANGE THIS AS PER SCHOOL
+            'username': '',  # CHANGE THIS AS PER SCHOOL
+            'password': '',  # CHANGE THIS AS PER SCHOOL
             'conn_timeout': 10  # this is required for doing larger lists of IP's, increase as needed
         }
 
@@ -28,20 +28,17 @@ with open('devices.txt') as devices:
         net_connect.enable()
         print('Connecting to ' + IP)
         print('-' * 79)
-        output = net_connect.send_command('show version')   # change this to what you need
+        output = net_connect.send_command('show version')  # change this to what you need
 
         print(output)
         # delay so you don't trip over yourself
         net_connect.select_delay_factor(10)
 
-
-        print()
+        # print()
         print('-' * 79)
         net_connect.disconnect()
-
 
 # df.close()
 print('Finished diagnostic check.')
 # print('Finished Writing')
 net_connect.disconnect()
-
