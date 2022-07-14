@@ -73,8 +73,11 @@ if command_list == "1":
     elif OSGuesser.autodetect() == "extreme_vsp":
         output = net_connect.send_command("show vlan mac-address-entry mac {}".format(macaddress))
         print(output)
+    elif OSGuesser.autodetect() == "extreme_ers":
+        output = net_connect.send_command("show mac-address-table address {}".format(macaddress))
     else:
-        print("Device type not supported")
+        print('Unknown platform, try again')
+        output = command_list
 else:
     print("please select something else, danke")
 
